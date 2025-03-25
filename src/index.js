@@ -2,7 +2,8 @@
 //fetch & display character names
 //show character details when clicked
 //handle votes properly
-
+//adding new characters
+//updating server with votes
 //>>>fetch
 function getingCharacters() {
  fetch("https://json-chi-six.vercel.app/characters/")
@@ -34,6 +35,22 @@ function showCharacterDetails(character){
     image.alt=character.name
     voteCount.textContent =character.votes 
 }
+
+document.getElementById("votes-form").addEventListener("submit",(event)=>{
+    event.preventDefault()
+    const votesInput = document.getElementById("votes")
+    const voteCount = document.getElementById("vote-count")
+ //declare current & new votes 
+    let currentVotes = parseInt(voteCount.textContent, 50)||0
+    let newVotes =parseInt(votesInput.value,50)
+ // adding current + new votes
+ if (currentVotes && newVotes > 0){
+    //ensuring we work with positive values
+    voteCount.textContent= currentVotes + newVotes
+ }
+ votesInput.value=""
+})
+
 
 
 }
