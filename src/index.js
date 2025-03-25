@@ -10,5 +10,13 @@ fetch("https://json-chi-six.vercel.app/characters/")
         characterBar.appendChild(span);            
     })
 })    
-}
 
+const voteForm = document.getElementById("votes-form")
+voteForm.addEventListener("submit",(event)=>{
+event.preventDefault();
+const votesInput = document.getElementById("votes").value
+const voteCount = document.getElementById("vote-count")
+const newVotes = parseInt(voteCount.textContent)+parseInt(votesInput)
+voteCount.textContent = newVotes
+})
+}
