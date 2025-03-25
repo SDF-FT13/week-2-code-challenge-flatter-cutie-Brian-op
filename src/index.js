@@ -1,84 +1,63 @@
-// Your code here
-//fetch & display character names
-//show character details when clicked
-//handle votes properly
-//adding new characters
-//updating server with votes
-//>>>fetch
-
-document.addEventListener("DOMContentLoaded", getCharacters)
-
-function getCharacters() {
-    fetch("https://json-chi-six.vercel.app/characters")
-    .then(response=>response.json() )
-    .then( data => {
-       const characterBar= document.getElementById("character-bar")
-       characterBar.innerHTML="";
-   
-       data.forEach(character=>{
-           const span = document.createElement("span");
-           span.textContent = character.name;
-           span.addEventListener("click",()=>showCharacterDetails(character));
-           characterBar.appendChild(span);            
-       })
-    })    
-    .catch(error=>console.log("Characters not fetched",error));    
-}
-//>>>>>>done fetching
-
-// display character details
-function showCharacterDetails(character){
-    selectedCharacter = character;
-    const name=document.getElementById("name")
-    const image = document.getElementById("image")
-    const voteCount = document.getElementById("vote-count")
- //updating 
-    name.textContent = character.name
-    image.src = character.image
-    image.alt = character.name
-    voteCount.textContent = character.votes 
-}
-
-document.getElementById("votes-form").addEventListener("submit",(event)=>{
-    event.preventDefault()
-    const votesInput = document.getElementById("votes")
-   const voteCount = document.getElementById("vote-count")
-
-   let newVotes= parseInt(votesInput.value)||0
-    votesInput.textContent=parseInt(voteCount.textContent)+newVotes 
+//Your code here
+ //fetch & display character names
+ //show character details when clicked
+ //handle votes properly
+ //adding new characters
+ //updating server with votes
+ //>>>fetch
  
- votesInput.value=""
-})
-
-
-const voteForm = document.getElementById("votes-form")
-voteForm.addEventListener("submit",(event)=>{
-event.preventDefault();
-
-if(!selectedCharacter){
-    alert("Please input Character First!")
-    return;
-}
-
-const votesInput = parseInt(document.getElementById("votes").value)
-const updatingVotes =selectedCharacter.votes + votesInput
-
-voteCount.textContent=updatingVotes
-
-const baseUrl="https://json-chi-six.vercel.app/characters"
-function updatingVotes(characterId, updatingVotes){}
-fetch(`${baseUrl}/${characterId}`,{
-    method:"PATCH",
-    headers:{
-        "content-Type":"application/json"},
-
-    body:JSON.stringify({votes:updatingVotes}),
-})
-.then(response=>response.json())
-.then(updatedCharacter=>{
-    console.log("updated character:",updatedCharacter);
+ document.addEventListener("DOMContentLoaded", getCharacters)
+ 
+ function getCharacters() {
+     fetch("https://json-chi-six.vercel.app/characters")
+     .then(response=>response.json() )
+     .then( data => {
+        const characterBar= document.getElementById("character-bar")
+        characterBar.innerHTML="";
     
-})
-.catch(error=>console.error("votes cannot reflect",error))
-event.target.reset()
-})
+        data.forEach(character=>{
+            const span =document.createElement("span");
+            span.textContent = character.name;
+            span.addEventListener("click",()=>showCharacterDetails(character));
+            characterBar.appendChild(span);            
+        })
+     })    
+     .catch(error=>console.log("Characters not fetched",error));    
+ }
+ 
+ 
+ 
+ //>>>>>>done fetching
+ 
+ // display character details
+ function showCharacterDetails(character){
+     const name=document.getElementById("name")
+     const image = document.getElementById("image")
+     const voteCount = document.getElementById("vote-count")
+  //updating 
+     name.textContent=character.name
+     image.src=character.image
+     image.alt=character.name
+     voteCount.textContent =character.votes 
+ }
+ 
+ document.getElementById("votes-form").addEventListener("submit",(event)=>{
+     event.preventDefault()
+     const votesInput = document.getElementById("votes")
+    const voteCount = document.getElementById("vote-count")
+ 
+    let newVotes= parseInt(votesInput.value)||0
+     votesInput.textContent=parseInt(voteCount.textContent)+newVotes 
+  
+  votesInput.value=""
+ })
+ 
+ 
+ const voteForm = document.getElementById("votes-form")
+ voteForm.addEventListener("submit",(event)=>{
+ event.preventDefault();
+ const votesInput = document.getElementById("votes").value
+ const voteCount = document.getElementById("vote-count")
+ const newVotes = parseInt(voteCount.textContent)+parseInt(votesInput)
+ voteCount.textContent = newVotes
+ })
