@@ -39,15 +39,11 @@ function showCharacterDetails(character){
 document.getElementById("votes-form").addEventListener("submit",(event)=>{
     event.preventDefault()
     const votesInput = document.getElementById("votes")
-    const voteCount = document.getElementById("vote-count")
- //declare current & new votes 
-    let currentVotes = parseInt(voteCount.textContent, 50)||0
-    let newVotes =parseInt(votesInput.value,50)
- // adding current + new votes
- if (currentVotes && newVotes > 0){
-    //ensuring we work with positive values
-    voteCount.textContent= currentVotes + newVotes
- }
+   const voteCount = document.getElementById("vote-count")
+
+   let newVotes= parseInt(votesInput.value)||0
+    votesInput.textContent=parseInt(voteCount.textContent)+newVotes 
+ 
  votesInput.value=""
 })
 
